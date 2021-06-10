@@ -2,9 +2,6 @@ package net.ormr.semver4k
 
 import kotlinx.collections.immutable.PersistentList
 
-// TODO: make the constructors of the children internal, and remove 'data' modifier, and then have factory function
-//       in the companion object of the parent class, so that we can return a 'Numeric' instance even if the user
-//       passes in a String that only contains numbers, make sure that it does not contain a leading zero.
 public sealed class Identifier : Comparable<Identifier> {
     public companion object {
         private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]".toRegex()
