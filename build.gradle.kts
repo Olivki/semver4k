@@ -18,6 +18,7 @@ apply(plugin = "com.vanniktech.maven.publish")
 val kotestVersion: String by project
 
 group = "net.ormr.semver4k"
+description = "A Kotlin multiplatform implementation of the semantic versioning 2.0 specification."
 version = "0.0.1"
 
 repositories {
