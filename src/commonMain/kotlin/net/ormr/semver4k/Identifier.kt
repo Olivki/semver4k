@@ -18,6 +18,9 @@ package net.ormr.semver4k
 
 import kotlinx.collections.immutable.PersistentList
 
+/**
+ * Represents an identifier belonging to either the pre-release version or build metadata of a semantic version.
+ */
 public sealed class Identifier : Comparable<Identifier> {
     public companion object {
         private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]+".toRegex()
