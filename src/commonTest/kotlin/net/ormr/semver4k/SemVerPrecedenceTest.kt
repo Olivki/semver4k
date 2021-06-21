@@ -38,13 +38,13 @@ class SemVerPrecedenceTest {
     @Test
     fun preReleasePrecedenceTests() = runTest {
         forAll(
-            row(SemVer(1u, 0u, 0u), SemVer(1u, 0u, 0u, "rc")),
-            row(SemVer(1u, 0u, 0u, "rc"), SemVer(1u, 0u, 0u, "beta.11")),
-            row(SemVer(1u, 0u, 0u, "beta.11"), SemVer(1u, 0u, 0u, "beta.2")),
-            row(SemVer(1u, 0u, 0u, "beta.2"), SemVer(1u, 0u, 0u, "beta")),
-            row(SemVer(1u, 0u, 0u, "beta"), SemVer(1u, 0u, 0u, "alpha.beta")),
-            row(SemVer(1u, 0u, 0u, "alpha.beta"), SemVer(1u, 0u, 0u, "alpha.1")),
-            row(SemVer(1u, 0u, 0u, "alpha.1"), SemVer(1u, 0u, 0u, "alpha")),
+            row(SemVer(1u, 0u, 0u), SemVer.of(1u, 0u, 0u, "rc")),
+            row(SemVer.of(1u, 0u, 0u, "rc"), SemVer.of(1u, 0u, 0u, "beta.11")),
+            row(SemVer.of(1u, 0u, 0u, "beta.11"), SemVer.of(1u, 0u, 0u, "beta.2")),
+            row(SemVer.of(1u, 0u, 0u, "beta.2"), SemVer.of(1u, 0u, 0u, "beta")),
+            row(SemVer.of(1u, 0u, 0u, "beta"), SemVer.of(1u, 0u, 0u, "alpha.beta")),
+            row(SemVer.of(1u, 0u, 0u, "alpha.beta"), SemVer.of(1u, 0u, 0u, "alpha.1")),
+            row(SemVer.of(1u, 0u, 0u, "alpha.1"), SemVer.of(1u, 0u, 0u, "alpha")),
         ) { a, b ->
             a shouldBeGreaterThan b
             a shouldNotBeEqualComparingTo b
