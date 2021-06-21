@@ -23,6 +23,7 @@ version = "0.0.1"
 
 repositories {
     mavenCentral()
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 kotlin {
