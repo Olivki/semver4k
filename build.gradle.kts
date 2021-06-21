@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(group = "com.vanniktech", name = "gradle-maven-publish-plugin", version = "0.15.1")
+        classpath(group = "com.vanniktech", name = "gradle-maven-publish-plugin", version = "0.16.0")
     }
 }
 
