@@ -20,9 +20,10 @@ package net.ormr.semver4k
  * Represents an exception thrown when something goes wrong with parsing text into a [SemVer] instance.
  */
 public sealed class SemVerParseException(message: String, cause: Throwable? = null) : Exception(message, cause) {
-    public class UnexpectedEndOfInput(message: String) : SemVerParseException(message)
+    public class UnexpectedEndOfInput internal constructor(message: String) : SemVerParseException(message)
 
-    public class UnexpectedCharacter(message: String) : SemVerParseException(message)
+    public class UnexpectedCharacter internal constructor(message: String) : SemVerParseException(message)
 
-    public class InvalidNumber(message: String, cause: Throwable) : SemVerParseException(message, cause)
+    public class InvalidNumber internal constructor(message: String, cause: Throwable) :
+        SemVerParseException(message, cause)
 }
