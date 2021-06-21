@@ -92,6 +92,10 @@ internal class SemVerParser(private val source: String) {
     private fun identifier(): Identifier {
         syncCursor()
 
+        if (isAtEnd()) {
+            throw UnexpectedEndOfInput("Expected identifier, got end of input.")
+        }
+
         while (peekMatch(NUMBER, LETTER, HYPHEN)) {
             advance()
         }
