@@ -35,7 +35,7 @@ internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): A
             // the system should be able to handle identifiers of any size (as long as the final string isn't larger
             // than what is supported by the JVM)
             val stringArb = Arb.string(minSize = 1, maxSize = 100, codepoints = Codepoint.semVerIdentifier())
-            val sequenceSize = rs.random.nextInt(1, maxParts + 1)
+            val sequenceSize = rs.random.nextInt(minParts, maxParts + 1)
             val identifiers = stringArb.samples(rs)
                 .take(sequenceSize)
                 .map { it.value }
