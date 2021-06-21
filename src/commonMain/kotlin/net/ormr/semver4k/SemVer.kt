@@ -60,7 +60,7 @@ public data class SemVer(
          *
          * @throws IllegalArgumentException if either [preRelease] or [buildMetadata] are invalid
          */
-        public operator fun invoke(
+        public fun of(
             major: UInt,
             minor: UInt,
             patch: UInt,
