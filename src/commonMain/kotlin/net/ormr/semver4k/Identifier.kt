@@ -20,7 +20,7 @@ import kotlinx.collections.immutable.PersistentList
 
 public sealed class Identifier : Comparable<Identifier> {
     public companion object {
-        private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]".toRegex()
+        private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]+".toRegex()
 
         /**
          * Returns the result of parsing the given [text] to a identifier sequence.
@@ -57,7 +57,7 @@ public sealed class Identifier : Comparable<Identifier> {
          */
         public fun of(text: String): Identifier {
             require(text.isNotEmpty()) { "Identifier should not be empty." }
-            require(text.matches(IDENTIFIER_CHARACTERS)) { "Identifier contains illegal characters." }
+            require(text.matches(IDENTIFIER_CHARACTERS)) { "Identifier contains illegal characters; '$text'." }
             return if (text.isNumber()) Numeric(text.toULong()) else Alphanumeric(text)
         }
     }
