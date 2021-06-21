@@ -148,7 +148,7 @@ class SemVerParserTest {
 
         val parsedIdentifier = Identifier.parse("")
         parsedIdentifier.shouldBeFailure {
-            it.shouldBeInstanceOf<SemVerException.UnexpectedEndOfInput>()
+            it.shouldBeInstanceOf<SemVerParseException.UnexpectedEndOfInput>()
             it shouldHaveMessage "Expected identifier, got end of input."
         }
     }
@@ -169,7 +169,7 @@ class SemVerParserTest {
     fun emptyIdentifierSequenceShouldFail() {
         val seq = SemVerParser.parseIdentifierSequence("alpha..69")
         seq.shouldBeFailure {
-            it.shouldBeInstanceOf<SemVerException>()
+            it.shouldBeInstanceOf<SemVerParseException>()
             it shouldHaveMessage "Expected identifier at start of sequence, got '.'."
         }
     }

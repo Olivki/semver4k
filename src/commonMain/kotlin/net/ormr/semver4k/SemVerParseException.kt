@@ -16,10 +16,13 @@
 
 package net.ormr.semver4k
 
-public sealed class SemVerException(message: String, cause: Throwable? = null) : Exception(message, cause) {
-    public class UnexpectedEndOfInput(message: String) : SemVerException(message)
+/**
+ * Represents an exception thrown when something goes wrong with parsing text into a [SemVer] instance.
+ */
+public sealed class SemVerParseException(message: String, cause: Throwable? = null) : Exception(message, cause) {
+    public class UnexpectedEndOfInput(message: String) : SemVerParseException(message)
 
-    public class UnexpectedCharacter(message: String) : SemVerException(message)
+    public class UnexpectedCharacter(message: String) : SemVerParseException(message)
 
-    public class InvalidNumber(message: String, cause: Throwable) : SemVerException(message, cause)
+    public class InvalidNumber(message: String, cause: Throwable) : SemVerParseException(message, cause)
 }

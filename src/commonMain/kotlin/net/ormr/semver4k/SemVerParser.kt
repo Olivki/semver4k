@@ -18,7 +18,7 @@ package net.ormr.semver4k
 
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import net.ormr.semver4k.SemVerException.*
+import net.ormr.semver4k.SemVerParseException.*
 import net.ormr.semver4k.SemVerParser.Matcher.*
 
 internal class SemVerParser(private val source: String) {
