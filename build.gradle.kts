@@ -1,3 +1,6 @@
+import com.vanniktech.maven.publish.MavenPublishPluginExtension
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     kotlin("multiplatform") version "1.5.20-RC"
     id("org.jetbrains.dokka") version "1.4.32"
@@ -24,6 +27,10 @@ version = "0.1.0"
 repositories {
     mavenCentral()
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+}
+
+extensions.configure<MavenPublishPluginExtension> {
+    sonatypeHost = SonatypeHost.S01
 }
 
 kotlin {
