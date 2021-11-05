@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-	implementation("net.ormr.semver4k:semver4k:${RELEASE_VERSION}")
+    implementation("net.ormr.semver4k:semver4k:${RELEASE_VERSION}")
 }
 ```
 
