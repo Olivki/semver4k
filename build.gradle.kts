@@ -2,7 +2,7 @@ import com.vanniktech.maven.publish.MavenPublishPluginExtension
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
-    kotlin("multiplatform") version "1.5.20-RC"
+    kotlin("multiplatform") version "1.6.10"
     id("org.jetbrains.dokka") version "1.4.32"
     `maven-publish`
 }
