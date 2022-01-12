@@ -1,22 +1,7 @@
-import com.vanniktech.maven.publish.MavenPublishPluginExtension
-import com.vanniktech.maven.publish.SonatypeHost
-
 plugins {
+    id("me.him188.maven-central-publish") version "1.0.0-dev-3"
     kotlin("multiplatform") version "1.6.10"
-    id("org.jetbrains.dokka") version "1.4.32"
-    `maven-publish`
 }
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath(group = "com.vanniktech", name = "gradle-maven-publish-plugin", version = "0.16.0")
-    }
-}
-
-apply(plugin = "com.vanniktech.maven.publish")
 
 val kotestVersion: String by project
 
@@ -29,8 +14,10 @@ repositories {
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
-extensions.configure<MavenPublishPluginExtension> {
-    sonatypeHost = SonatypeHost.S01
+mavenCentralPublish {
+    useCentralS01()
+    singleDevGithubProject("Olivki", "semver4k")
+    licenseApacheV2()
 }
 
 kotlin {
@@ -45,20 +32,8 @@ kotlin {
         }
     }
     js(BOTH) {
-        nodejs {
-            testTask {
-                useMocha {
-                    timeout = "30000"
-                }
-            }
-        }
-        compilations.all {
-            kotlinOptions {
-                sourceMap = true
-                moduleKind = "umd"
-                metaInfo = true
-            }
-        }
+        nodejs()
+        browser()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -103,7 +78,7 @@ kotlin {
 
         all {
             languageSettings {
-                useExperimentalAnnotation("kotlin.Experimental")
+                optIn("kotlin.Experimental")
             }
         }
     }
