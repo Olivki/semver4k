@@ -87,19 +87,22 @@ public data class SemVer(
      * If something is in its initial development phase, then it should not be considered stable, and anything may
      * change at any time.
      */
-    public fun isInitialDevelopmentPhase(): Boolean = major == 0u
+    public val isInitialDevelopmentPhase: Boolean
+        get() = major == 0u
 
     /**
      * Returns `true` if this version is a pre-release version, otherwise `false`.
      *
      * Whether or not a version is considered a pre-release depends on whether [preRelease] is empty or not.
      */
-    public fun isPreRelease(): Boolean = preRelease.isNotEmpty()
+    public val isPreRelease: Boolean
+        get() = preRelease.isNotEmpty()
 
     /**
      * Returns `true` if this version has build metadata defined, otherwise `false`.
      */
-    public fun hasBuildMetadata(): Boolean = buildMetadata.isNotEmpty()
+    public val hasBuildMetadata: Boolean
+        get() = buildMetadata.isNotEmpty()
 
     override fun compareTo(other: SemVer): Int = when {
         major > other.major -> 1
