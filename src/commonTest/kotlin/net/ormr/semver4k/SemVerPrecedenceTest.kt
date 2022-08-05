@@ -23,14 +23,13 @@ import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.comparables.shouldNotBeEqualComparingTo
 import io.kotest.matchers.shouldNotBe
-import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 
 class SemVerPrecedenceTest {
     @Test
     fun preReleaseVersionShouldHaveLowerPrecedenceThanOneWithout() {
         val a = SemVer(1u, 0u, 0u)
-        val b = a.copy(preRelease = persistentListOf(Identifier.Alphanumeric("beta")))
+        val b = a.copy(preRelease = listOf(Identifier.Alphanumeric("beta")))
         a shouldBeGreaterThan b
         b shouldBeLessThan a
     }
@@ -68,14 +67,14 @@ class SemVerPrecedenceTest {
     @Test
     fun buildMetadataShouldBeIgnoredForPrecedence() {
         val a = SemVer(1u, 0u, 0u)
-        val b = a.copy(buildMetadata = persistentListOf(Identifier.Alphanumeric("some-data")))
+        val b = a.copy(buildMetadata = listOf(Identifier.Alphanumeric("some-data")))
         a shouldBeEqualComparingTo b
     }
 
     @Test
     fun buildMetadataShouldBeIncludedForEquals() {
         val a = SemVer(1u, 0u, 0u)
-        val b = a.copy(buildMetadata = persistentListOf(Identifier.Alphanumeric("some-data")))
+        val b = a.copy(buildMetadata = listOf(Identifier.Alphanumeric("some-data")))
         a shouldNotBe b
     }
 }

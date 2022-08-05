@@ -16,8 +16,6 @@
 
 package net.ormr.semver4k
 
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 import net.ormr.semver4k.SemVerParseException.*
 import net.ormr.semver4k.SemVerParser.Matcher.*
 
@@ -30,7 +28,7 @@ internal class SemVerParser(private val source: String) {
             return kotlin.runCatching { parser.semVer() }
         }
 
-        fun parseIdentifierSequence(source: String): Result<PersistentList<Identifier>> {
+        fun parseIdentifierSequence(source: String): Result<List<Identifier>> {
             val parser = SemVerParser(source)
             return kotlin.runCatching { parser.identifierSequence(null) }
         }
@@ -50,8 +48,8 @@ internal class SemVerParser(private val source: String) {
         val minor = versionCore("minor")
         consume(DOT, "Expect '.' after minor version")
         val patch = versionCore("patch")
-        val preRelease = if (match(HYPHEN)) identifierSequence("-") else persistentListOf()
-        val buildMetadata = if (match(PLUS)) identifierSequence("+") else persistentListOf()
+        val preRelease = if (match(HYPHEN)) identifierSequence("-") else emptyList()
+        val buildMetadata = if (match(PLUS)) identifierSequence("+") else emptyList()
         consume(END_OF_INPUT, "Expected end of input")
         return SemVer(major, minor, patch, preRelease, buildMetadata)
     }
@@ -73,7 +71,7 @@ internal class SemVerParser(private val source: String) {
         }
     }
 
-    private fun identifierSequence(symbol: String?): PersistentList<Identifier> = buildPersistentList {
+    private fun identifierSequence(symbol: String?): List<Identifier> = buildList {
         do {
             if (!peekMatch(NUMBER, LETTER, HYPHEN)) {
                 val preMessage =

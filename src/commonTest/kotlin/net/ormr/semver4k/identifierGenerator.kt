@@ -23,14 +23,12 @@ import io.kotest.property.arbitrary.Codepoint
 import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.toPersistentList
 
-internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): Arb<Pair<PersistentList<Identifier>, String>> =
-    object : Arb<Pair<PersistentList<Identifier>, String>>() {
-        override fun edgecase(rs: RandomSource): Pair<PersistentList<Identifier>, String>? = null
+internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): Arb<Pair<List<Identifier>, String>> =
+    object : Arb<Pair<List<Identifier>, String>>() {
+        override fun edgecase(rs: RandomSource): Pair<List<Identifier>, String>? = null
 
-        override fun sample(rs: RandomSource): Sample<Pair<PersistentList<Identifier>, String>> {
+        override fun sample(rs: RandomSource): Sample<Pair<List<Identifier>, String>> {
             // I don't really know what a sensible maxSize would be, even 100 feels a bit large for a semver identifier
             // the system should be able to handle identifiers of any size (as long as the final string isn't larger
             // than what is supported by the JVM)
@@ -40,7 +38,7 @@ internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): A
                 .take(sequenceSize)
                 .map { it.value }
                 .map { Identifier.of(it) }
-                .toPersistentList()
+                .toList()
             val identifierTextSequence = identifiers.joinToString(separator = ".")
             return Sample(identifiers to identifierTextSequence)
         }

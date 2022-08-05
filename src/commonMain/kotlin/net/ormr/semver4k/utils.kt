@@ -16,11 +16,6 @@
 
 package net.ormr.semver4k
 
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.mutate
-import kotlinx.collections.immutable.persistentListOf
-import kotlin.experimental.ExperimentalTypeInference
-
 internal fun Char.isNumber(): Boolean = this in '0'..'9'
 
 internal fun Char.isAlpha(): Boolean = this in 'A'..'Z' || this in 'a'..'z' || this == '-'
@@ -36,7 +31,3 @@ internal fun String.isNumber(): Boolean = when {
     // numbers here without having to worry about leading zeros
     else -> this.all { it.isNumber() }
 }
-
-@OptIn(ExperimentalTypeInference::class)
-internal inline fun <T> buildPersistentList(@BuilderInference builder: MutableList<T>.() -> Unit): PersistentList<T> =
-    persistentListOf<T>().mutate(builder)

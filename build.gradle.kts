@@ -45,11 +45,7 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.4")
-            }
-        }
+        val commonMain by getting
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))

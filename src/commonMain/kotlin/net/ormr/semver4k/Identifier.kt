@@ -16,8 +16,6 @@
 
 package net.ormr.semver4k
 
-import kotlinx.collections.immutable.PersistentList
-
 /**
  * Represents an identifier belonging to either the pre-release version or build metadata of a semantic version.
  */
@@ -30,7 +28,7 @@ public sealed class Identifier : Comparable<Identifier> {
          *
          * An identifier sequence is a sequence of identifiers, separated by a `.` between each identifier.
          */
-        public fun parseSequence(text: String): Result<PersistentList<Identifier>> =
+        public fun parseSequence(text: String): Result<List<Identifier>> =
             SemVerParser.parseIdentifierSequence(text)
 
         /**
@@ -70,6 +68,7 @@ public sealed class Identifier : Comparable<Identifier> {
             is Numeric -> value.compareTo(other.value)
             is Alphanumeric -> -1 // "Numeric identifiers always have lower precedence than non-numeric identifiers."
         }
+
         is Alphanumeric -> when (other) {
             is Numeric -> 1 // "Numeric identifiers always have lower precedence than non-numeric identifiers."
             is Alphanumeric -> text.compareTo(other.text)

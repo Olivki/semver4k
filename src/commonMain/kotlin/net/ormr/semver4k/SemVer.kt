@@ -16,9 +16,6 @@
 
 package net.ormr.semver4k
 
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
-
 /**
  * Represents a semantic version, as defined in the [Semantic Versioning 2.0 Specification](https://semver.org/spec/v2.0.0.html).
  *
@@ -40,8 +37,8 @@ public data class SemVer(
     public val major: UInt,
     public val minor: UInt,
     public val patch: UInt,
-    public val preRelease: PersistentList<Identifier> = persistentListOf(),
-    public val buildMetadata: PersistentList<Identifier> = persistentListOf(),
+    public val preRelease: List<Identifier> = emptyList(),
+    public val buildMetadata: List<Identifier> = emptyList(),
 ) : Comparable<SemVer> {
     public companion object {
         /**
@@ -74,10 +71,10 @@ public data class SemVer(
             buildMetadata.toIdentifierSequence("build metadata"),
         )
 
-        private fun String?.toIdentifierSequence(name: String): PersistentList<Identifier> = this?.let {
+        private fun String?.toIdentifierSequence(name: String): List<Identifier> = this?.let {
             SemVerParser.parseIdentifierSequence(it)
                 .getOrElse { e -> throw IllegalArgumentException("Invalid $name '$it'.", e) }
-        } ?: persistentListOf()
+        } ?: emptyList()
     }
 
     /**

@@ -30,7 +30,6 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.uInt
 import io.kotest.property.checkAll
-import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 
 class SemVerParserTest {
@@ -113,7 +112,7 @@ class SemVerParserTest {
 
     @Test
     fun versionWithPreReleaseShouldAllowHyphen() {
-        val preRelease = persistentListOf(Identifier.Alphanumeric("beta-1"))
+        val preRelease = listOf(Identifier.Alphanumeric("beta-1"))
         val concreteVersion = SemVer(1u, 0u, 0u, preRelease)
         val parsedVersion = SemVer.parse("1.0.0-beta-1")
         parsedVersion shouldBeSuccess concreteVersion
