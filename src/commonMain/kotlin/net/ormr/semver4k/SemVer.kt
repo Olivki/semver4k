@@ -37,44 +37,14 @@ public data class SemVer(
     public val major: UInt,
     public val minor: UInt,
     public val patch: UInt,
-    public val preRelease: List<Identifier> = emptyList(),
-    public val buildMetadata: List<Identifier> = emptyList(),
+    public val preRelease: List<Identifier>,
+    public val buildMetadata: List<Identifier>,
 ) : Comparable<SemVer> {
     public companion object {
         /**
          * Returns the result of parsing the given [text] to a `SemVer` instance.
          */
         public fun parse(text: String): Result<SemVer> = SemVerParser.parseSemVer(text)
-
-        /**
-         * Returns a new `SemVer` instance.
-         *
-         * @param major the major version
-         * @param minor the minor version
-         * @param patch the patch version
-         * @param preRelease the pre-release to parse, or `null` if the version is not a pre-release
-         * @param buildMetadata the build metadata to parse, or `null` if the version has no build metadata
-         *
-         * @throws IllegalArgumentException if either [preRelease] or [buildMetadata] are invalid
-         */
-        public fun of(
-            major: UInt,
-            minor: UInt,
-            patch: UInt,
-            preRelease: String? = null,
-            buildMetadata: String? = null,
-        ): SemVer = SemVer(
-            major,
-            minor,
-            patch,
-            preRelease.toIdentifierSequence("pre-release"),
-            buildMetadata.toIdentifierSequence("build metadata"),
-        )
-
-        private fun String?.toIdentifierSequence(name: String): List<Identifier> = this?.let {
-            SemVerParser.parseIdentifierSequence(it)
-                .getOrElse { e -> throw IllegalArgumentException("Invalid $name '$it'.", e) }
-        } ?: emptyList()
     }
 
     /**
@@ -138,3 +108,33 @@ public data class SemVer(
         buildMetadata.joinTo(this, separator = ".")
     }
 }
+
+/**
+ * Returns a new `SemVer` instance.
+ *
+ * @param major the major version
+ * @param minor the minor version
+ * @param patch the patch version
+ * @param preRelease the pre-release to parse, or `null` if the version is not a pre-release
+ * @param buildMetadata the build metadata to parse, or `null` if the version has no build metadata
+ *
+ * @throws IllegalArgumentException if either [preRelease] or [buildMetadata] are invalid
+ */
+public fun SemVer(
+    major: UInt,
+    minor: UInt,
+    patch: UInt,
+    preRelease: String? = null,
+    buildMetadata: String? = null,
+): SemVer = SemVer(
+    major,
+    minor,
+    patch,
+    preRelease.toIdentifierSequenceOrEmptyList("pre-release"),
+    buildMetadata.toIdentifierSequenceOrEmptyList("build metadata"),
+)
+
+private fun String?.toIdentifierSequenceOrEmptyList(name: String): List<Identifier> = this?.let {
+    SemVerParser.parseIdentifierSequence(it)
+        .getOrElse { e -> throw IllegalArgumentException("Invalid $name '$it'.", e) }
+} ?: emptyList()

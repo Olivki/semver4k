@@ -73,7 +73,7 @@ class SemVerParserTest {
             Arb.uInt(),
             Arb.semVerIdentifier(maxParts = 5),
         ) { major, minor, patch, (preList, preText) ->
-            val expectedVersion = SemVer(major, minor, patch, preRelease = preList)
+            val expectedVersion = SemVer(major, minor, patch, preRelease = preList, buildMetadata = emptyList())
             val parsedVersion = SemVerParser.parseSemVer("$major.$minor.$patch-$preText")
             parsedVersion shouldBeSuccess expectedVersion
         }
@@ -88,7 +88,7 @@ class SemVerParserTest {
             Arb.uInt(),
             Arb.semVerIdentifier(maxParts = 5),
         ) { major, minor, patch, (buildList, buildText) ->
-            val expectedVersion = SemVer(major, minor, patch, buildMetadata = buildList)
+            val expectedVersion = SemVer(major, minor, patch, preRelease = emptyList(), buildMetadata = buildList)
             val parsedVersion = SemVerParser.parseSemVer("$major.$minor.$patch+$buildText")
             parsedVersion shouldBeSuccess expectedVersion
         }
@@ -113,7 +113,7 @@ class SemVerParserTest {
     @Test
     fun versionWithPreReleaseShouldAllowHyphen() {
         val preRelease = listOf(Identifier.Alphanumeric("beta-1"))
-        val concreteVersion = SemVer(1u, 0u, 0u, preRelease)
+        val concreteVersion = SemVer(1u, 0u, 0u, preRelease = preRelease, buildMetadata = emptyList())
         val parsedVersion = SemVer.parse("1.0.0-beta-1")
         parsedVersion shouldBeSuccess concreteVersion
         val result = shouldNotThrowAny { parsedVersion.getOrThrow() }
