@@ -115,6 +115,22 @@ class SemVerParserTest {
     }
 
     @Test
+    fun toStringResultShouldBeAbleToBeParsedBackToEquivalentInstance() = runTest {
+        checkAll(
+            ITERATIONS,
+            Arb.uInt(),
+            Arb.uInt(),
+            Arb.uInt(),
+            Arb.semVerIdentifier(maxParts = 5),
+            Arb.semVerIdentifier(maxParts = 5),
+        ) { major, minor, patch, (preList, _), (buildList, _) ->
+            val expectedVersion = SemVer(major, minor, patch, preRelease = preList, buildMetadata = buildList)
+            val parsedVersion = SemVer.parse(expectedVersion.toString())
+            parsedVersion shouldBeSuccess expectedVersion
+        }
+    }
+
+    @Test
     fun versionWithPreReleaseShouldAllowHyphen() {
         val preRelease = listOf(Identifier.Alphanumeric("beta-1"))
         val concreteVersion = SemVer(1u, 0u, 0u, preRelease = preRelease, buildMetadata = emptyList())
