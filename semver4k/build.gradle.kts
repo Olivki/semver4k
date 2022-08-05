@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform")
     id("me.him188.maven-central-publish")
+    kotlin("multiplatform")
 }
 
 val kotestVersion: String by rootProject
