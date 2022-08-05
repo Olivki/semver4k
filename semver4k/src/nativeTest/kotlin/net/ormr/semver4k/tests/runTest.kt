@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 Oliver Berg
+ * Copyright 2022 Oliver Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package net.ormr.semver4k
+package net.ormr.semver4k.tests
 
-import io.kotest.assertions.throwables.shouldNotThrowAny
-import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 
-internal inline fun <reified T : Identifier> checkIdentifierCoercion(text: String) {
-    Identifier(text).shouldBeInstanceOf<T>()
-    shouldNotThrowAny { SemVerParser.parseIdentifier(text).getOrThrow() }.shouldBeInstanceOf<T>()
-}
+actual fun runTest(block: suspend (scope: CoroutineScope) -> Unit) = runBlocking { block(this) }

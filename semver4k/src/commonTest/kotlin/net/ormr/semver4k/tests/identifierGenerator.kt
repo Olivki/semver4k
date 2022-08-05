@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 Oliver Berg
+ * Copyright 2022 Oliver Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.ormr.semver4k
+package net.ormr.semver4k.tests
 
 import io.kotest.property.Arb
 import io.kotest.property.RandomSource
@@ -23,6 +23,7 @@ import io.kotest.property.arbitrary.Codepoint
 import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
+import net.ormr.semver4k.Identifier
 
 internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): Arb<Pair<List<Identifier>, String>> =
     object : Arb<Pair<List<Identifier>, String>>() {

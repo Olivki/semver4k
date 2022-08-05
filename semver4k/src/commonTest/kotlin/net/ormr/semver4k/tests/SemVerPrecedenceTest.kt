@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 Oliver Berg
+ * Copyright 2022 Oliver Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.ormr.semver4k
+package net.ormr.semver4k.tests
 
 import io.kotest.data.forAll
 import io.kotest.data.row
@@ -23,6 +23,8 @@ import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.comparables.shouldNotBeEqualComparingTo
 import io.kotest.matchers.shouldNotBe
+import net.ormr.semver4k.Identifier
+import net.ormr.semver4k.SemVer
 import kotlin.test.Test
 
 class SemVerPrecedenceTest {

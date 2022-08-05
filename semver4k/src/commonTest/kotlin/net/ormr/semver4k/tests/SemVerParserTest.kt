@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 Oliver Berg
+ * Copyright 2022 Oliver Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.ormr.semver4k
+package net.ormr.semver4k.tests
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -30,6 +30,10 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.uInt
 import io.kotest.property.checkAll
+import net.ormr.semver4k.Identifier
+import net.ormr.semver4k.SemVer
+import net.ormr.semver4k.SemVerParseException
+import net.ormr.semver4k.SemVerParser
 import kotlin.test.Test
 
 class SemVerParserTest {
