@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Oliver Berg
+ * Copyright 2022 Oliver Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package net.ormr.semver4k
+package net.ormr.semver4k.tests
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.runBlocking
 
-actual fun runTest(block: suspend (scope: CoroutineScope) -> Unit) = runBlocking { block(this) }
+expect fun runTest(block: suspend (scope: CoroutineScope) -> Unit)
