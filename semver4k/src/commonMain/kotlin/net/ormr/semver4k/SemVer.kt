@@ -45,6 +45,11 @@ public data class SemVer(
          * Returns the result of parsing the given [text] to a `SemVer` instance.
          */
         public fun parse(text: String): Result<SemVer> = SemVerParser.parseSemVer(text)
+
+        /**
+         * Returns `true` if the given [text] is a valid semantic version, otherwise `false`.
+         */
+        public fun isValid(text: String): Boolean = parse(text).fold({ true }, { false })
     }
 
     /**
