@@ -93,7 +93,7 @@ public data class SemVer(
     /**
      * Returns `true` if this version is a pre-release version, otherwise `false`.
      *
-     * Whether or not a version is considered a pre-release depends on whether [preRelease] is empty or not.
+     * Whether a version is considered a pre-release depends on whether [preRelease] is empty or not.
      */
     public val isPreRelease: Boolean
         get() = preRelease.isNotEmpty()

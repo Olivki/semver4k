@@ -26,7 +26,7 @@ public sealed class Identifier : Comparable<Identifier> {
         private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]+".toRegex()
 
         /**
-         * Returns the result of parsing the given [text] to a identifier sequence.
+         * Returns the result of parsing the given [text] to an identifier sequence.
          *
          * An identifier sequence is a sequence of identifiers, separated by a `.` between each identifier.
          */
@@ -37,8 +37,8 @@ public sealed class Identifier : Comparable<Identifier> {
          * Returns the result of parsing the given [text] to an [Identifier].
          *
          * If the parsing was successful, then the type of the returned identifier depends on the contents of `text`.
-         * If `text` only contains numbers *(without a leading zero)* then [numeric identifier][Numeric] is returned,
-         * otherwise [alphanumeric identifier][Alphanumeric] is returned.
+         * If `text` only contains numbers *(without a leading zero)* then a [numeric identifier][Numeric] is returned,
+         * otherwise an [alphanumeric identifier][Alphanumeric] is returned.
          */
         public fun parse(text: String): Result<Identifier> = SemVerParser.parseIdentifier(text)
 
@@ -51,8 +51,8 @@ public sealed class Identifier : Comparable<Identifier> {
          * Returns a new identifier containing the given [text].
          *
          * The type of the returned identifier depends on the contents of `text`. If `text` only contains numbers
-         * *(without a leading zero)* then [numeric identifier][Numeric] is returned, otherwise
-         * [alphanumeric identifier][Alphanumeric] is returned.
+         * *(without a leading zero)* then a [numeric identifier][Numeric] is returned, otherwise
+         * an [alphanumeric identifier][Alphanumeric] is returned.
          *
          * @throws IllegalArgumentException if [text] is empty or contains illegal characters
          *
