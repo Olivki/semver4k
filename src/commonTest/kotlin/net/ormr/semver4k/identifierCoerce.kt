@@ -20,6 +20,6 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.types.shouldBeInstanceOf
 
 internal inline fun <reified T : Identifier> checkIdentifierCoercion(text: String) {
-    Identifier.of(text).shouldBeInstanceOf<T>()
+    Identifier(text).shouldBeInstanceOf<T>()
     shouldNotThrowAny { SemVerParser.parseIdentifier(text).getOrThrow() }.shouldBeInstanceOf<T>()
 }

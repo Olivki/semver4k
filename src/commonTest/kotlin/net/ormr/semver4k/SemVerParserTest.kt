@@ -49,7 +49,7 @@ class SemVerParserTest {
         checkAll(ITERATIONS, Arb.semVerIdentifier(maxParts = 1)) { (list, text) ->
             val expectedIdentifier = list.first()
             val parsedIdentifier = SemVerParser.parseIdentifier(text)
-            val ofIdentifier = shouldNotThrowAny { Identifier.of(text) }
+            val ofIdentifier = shouldNotThrowAny { Identifier(text) }
             parsedIdentifier shouldBeSuccess expectedIdentifier
             ofIdentifier shouldBe expectedIdentifier
         }
@@ -136,13 +136,13 @@ class SemVerParserTest {
 
         checkAll<ULong>(10) { value ->
             // if an unsigned number is directly passed in, then it should *always* return a numeric instance
-            Identifier.of(value).shouldBeInstanceOf<Identifier.Numeric>()
+            Identifier(value).shouldBeInstanceOf<Identifier.Numeric>()
         }
     }
 
     @Test
     fun emptyIdentifierShouldFail() {
-        val ofException = shouldThrow<IllegalArgumentException> { Identifier.of("") }
+        val ofException = shouldThrow<IllegalArgumentException> { Identifier("") }
         ofException shouldHaveMessage "Identifier should not be empty."
 
         val parsedIdentifier = Identifier.parse("")
@@ -154,8 +154,8 @@ class SemVerParserTest {
 
     @Test
     fun numericIdentifiersShouldBeCorrect() {
-        val a = shouldNotThrowAny { Identifier.of("1") }
-        val b = shouldNotThrowAny { Identifier.of("2") }
+        val a = shouldNotThrowAny { Identifier("1") }
+        val b = shouldNotThrowAny { Identifier("2") }
         a.shouldBeInstanceOf<Identifier.Numeric>()
         b.shouldBeInstanceOf<Identifier.Numeric>()
 

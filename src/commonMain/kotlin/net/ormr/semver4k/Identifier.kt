@@ -16,13 +16,15 @@
 
 package net.ormr.semver4k
 
+import net.ormr.semver4k.Identifier.Alphanumeric
+import net.ormr.semver4k.Identifier.Companion.parse
+import net.ormr.semver4k.Identifier.Numeric
+
 /**
  * Represents an identifier belonging to either the pre-release version or build metadata of a semantic version.
  */
 public sealed class Identifier : Comparable<Identifier> {
     public companion object {
-        private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]+".toRegex()
-
         /**
          * Returns the result of parsing the given [text] to an identifier sequence.
          *
@@ -39,28 +41,6 @@ public sealed class Identifier : Comparable<Identifier> {
          * otherwise an [alphanumeric identifier][Alphanumeric] is returned.
          */
         public fun parse(text: String): Result<Identifier> = SemVerParser.parseIdentifier(text)
-
-        /**
-         * Returns a new [numeric identifier][Numeric] containing the given [value].
-         */
-        public fun of(value: ULong): Identifier = Numeric(value)
-
-        /**
-         * Returns a new identifier containing the given [text].
-         *
-         * The type of the returned identifier depends on the contents of `text`. If `text` only contains numbers
-         * *(without a leading zero)* then a [numeric identifier][Numeric] is returned, otherwise
-         * an [alphanumeric identifier][Alphanumeric] is returned.
-         *
-         * @throws IllegalArgumentException if [text] is empty or contains illegal characters
-         *
-         * @see parse
-         */
-        public fun of(text: String): Identifier {
-            require(text.isNotEmpty()) { "Identifier should not be empty." }
-            require(text.matches(IDENTIFIER_CHARACTERS)) { "Identifier contains illegal characters; '$text'." }
-            return if (text.isNumber()) Numeric(text.toULong()) else Alphanumeric(text)
-        }
     }
 
     override fun compareTo(other: Identifier): Int = when (this) {
@@ -106,4 +86,28 @@ public sealed class Identifier : Comparable<Identifier> {
 
         override fun toString(): String = text
     }
+}
+
+private val IDENTIFIER_CHARACTERS: Regex = "[0-9A-Za-z-]+".toRegex()
+
+/**
+ * Returns a new [numeric identifier][Numeric] containing the given [value].
+ */
+public fun Identifier(value: ULong): Identifier = Numeric(value)
+
+/**
+ * Returns a new identifier containing the given [text].
+ *
+ * The type of the returned identifier depends on the contents of `text`. If `text` only contains numbers
+ * *(without a leading zero)* then a [numeric identifier][Numeric] is returned, otherwise
+ * an [alphanumeric identifier][Alphanumeric] is returned.
+ *
+ * @throws IllegalArgumentException if [text] is empty or contains illegal characters
+ *
+ * @see parse
+ */
+public fun Identifier(text: String): Identifier {
+    require(text.isNotEmpty()) { "Identifier should not be empty." }
+    require(text.matches(IDENTIFIER_CHARACTERS)) { "Identifier contains illegal characters; '$text'." }
+    return if (text.isNumber()) Numeric(text.toULong()) else Alphanumeric(text)
 }

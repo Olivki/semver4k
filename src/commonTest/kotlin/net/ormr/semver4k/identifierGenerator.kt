@@ -37,7 +37,7 @@ internal fun Arb.Companion.semVerIdentifier(minParts: Int = 1, maxParts: Int): A
             val identifiers = stringArb.samples(rs)
                 .take(sequenceSize)
                 .map { it.value }
-                .map { Identifier.of(it) }
+                .map { Identifier(it) }
                 .toList()
             val identifierTextSequence = identifiers.joinToString(separator = ".")
             return Sample(identifiers to identifierTextSequence)
