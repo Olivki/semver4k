@@ -66,6 +66,14 @@ public data class SemVer(
         get() = preRelease.isNotEmpty()
 
     /**
+     * Returns `true` if this version can be considered stable, otherwise `false`.
+     *
+     * Whether a version can be considered stable depends on if the [major] part is `> 0` and [preRelease] is empty.
+     */
+    public val isStable: Boolean
+        get() = major > 0u && preRelease.isEmpty()
+
+    /**
      * Returns `true` if this version has build metadata defined, otherwise `false`.
      */
     public val hasBuildMetadata: Boolean
