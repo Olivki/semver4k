@@ -31,10 +31,13 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(BOTH) {
+
+    js(IR) {
+        binaries.library()
         nodejs()
         browser()
     }
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
